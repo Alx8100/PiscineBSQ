@@ -1,12 +1,14 @@
 #ifndef FT_H
 # define FT_H
-typedef struct s_info_map
+typedef struct s_map
 {
-	int size;
-	unsigned char empty;
-	unsigned char obstacle;
+	int rows;
+	int cols;
+	unsigned char **mat;
+	unsigned char empt;
+	unsigned char obst;
 	unsigned char full;
-} t_info_map;
+} t_map;
 typedef struct s_square
 {
 	int x;
