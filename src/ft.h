@@ -15,4 +15,4 @@ typedef struct s_square
 	int y;
 	int size;
 } t_square;
-#endif FT_H
+#endif
