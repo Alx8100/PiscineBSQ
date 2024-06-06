@@ -47,7 +47,6 @@ t_map  readfile(char file, t_map map)
 	map.cols=countcols;
 	return map;
 }
-
 t_square get_square(int row, int col, t_map map, t_square sqr)
 {	
 	int i=0;
@@ -145,4 +144,27 @@ void stampamatrice(t_map map)
 		write(1,"\n",1);
 		i++;
 	}
+}
+int main(int argc, char ** argv)
+{
+	int i;
+	int j;
+	t_map map;
+	int file=open(argv[1],O_RDONLY);
+	map.rows=100;
+	map.cols=100;
+	map.mat = (unsigned char**)malloc(sizeof(unsigned char*) * map.rows);
+    for (i = 0; i < map.rows; i++) 
+	{
+        map.mat[i] = (unsigned char*)malloc(sizeof(unsigned char) * map.cols);
+    }
+	map=readfile(file,map);
+	stampamatrice(map);
+	t_square sqrt=get_max_square(map);
+	//write(1,"\n",1);
+	map.mat=changematrix(map,sqrt);
+	stampamatrice(map);
+	printf("\n%i\n",sqrt.x);
+	printf("%i\n",sqrt.y);
+	printf("%i\n",sqrt.size);
 }
