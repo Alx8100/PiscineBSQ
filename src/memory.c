@@ -1,38 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   memory.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nipollin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/06 08:58:02 by nipollin          #+#    #+#             */
-/*   Updated: 2024/06/06 12:51:56 by nipollin         ###   ########.fr       */
+/*   Created: 2024/06/06 22:08:05 by nipollin          #+#    #+#             */
+/*   Updated: 2024/06/06 22:08:07 by nipollin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include <stdlib.h>
+
 #include "ft.h"
 
-int	main(int argc, char **argv)
+char	*ft_smart_free(char **str)
 {
-	int	idx;
+	free(str);
+	return (NULL);
+}
 
-	if (argc < 2)
+int	ft_free_mat_partial(t_map *map, int rows)
+{
+	int	row;
+
+	row = 0;
+	while (row < rows)
 	{
-		if (!ft_max_square(STDIN_FILENO))
-			ft_print_error();
+		free(map->mat[row]);
+		row++;
 	}
-	else
-	{
-		idx = 1;
-		while (idx < argc)
-		{
-			if (!ft_max_square_file(argv[idx]))
-				ft_print_error();
-			if (idx != argc - 1)
-				write(STDOUT_FILENO, "\n", 1);
-			idx++;
-		}
-	}
-	return (0);
+	free(map->mat);
+	return (FALSE);
+}
+
+void	ft_free_mat(t_map *map)
+{
+	ft_free_mat_partial(map, map->rows);
 }
